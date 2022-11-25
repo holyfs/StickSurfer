@@ -1,9 +1,7 @@
 package stick.surfer.Stick.Surfer.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,4 +20,19 @@ public class UserController {
     public List<User> getUsers(){
         return userService.getUsers();
     };
+
+    @PostMapping
+    public String registerNewUser(@RequestBody User user){
+        return userService.addNewUser(user);
+    }
+    @DeleteMapping(path="{userId}")
+    public void deleteUser(@PathVariable("userId")Long userId){
+        userService.deleteUser(userId);
+    }
+
+    @PutMapping(path="{userId}")
+    public void updateUserMaxScore(@RequestBody User user){
+
+        userService.updateUserMaxScore(user.getId(), user.getLastScore());
+    }
 }
